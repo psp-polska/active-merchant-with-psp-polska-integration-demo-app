@@ -6,6 +6,7 @@ gem 'rails', '3.0.4'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'activemerchant', :require => "active_merchant", :git => "file:///home/piotrek/rails/active_merchant"
 
 # Use unicorn as the web server
 # gem 'unicorn'
