@@ -1,6 +1,6 @@
 GIT
   remote: file:///home/piotrek/rails/active_merchant
-  revision: a2cfcff2023c2aeb450b79d4f24966bd96532b49
+  revision: 7cb405e0f0ae4dc57ab2d41e7a6412aa48cc86dd
   specs:
     activemerchant (1.12.1)
       activesupport (>= 2.3.8)

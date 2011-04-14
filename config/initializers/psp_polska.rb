@@ -1,0 +1,6 @@
+PSP_POLSKA_REQUEST_URI = "https://sandbox.psp-polska.pl/api/receiver.xml"
+PSP_POLSKA_KEY_REQUEST = "uK4OBZLnmUIz"
+PSP_POLSKA_BASIC_AUTH_LOGIN = "sandbox"
+PSP_POLSKA_BASIC_AUTH_PASSWORD = "SumiennySabotaz"
+PSP_POLSKA_APP_ID = "452292320"
+PSP_POLSKA_PASSWORD = "YRbCjAyMVugz"
