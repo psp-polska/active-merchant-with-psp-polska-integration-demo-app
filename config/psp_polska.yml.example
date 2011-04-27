@@ -1,0 +1,7 @@
+request_uri: "https://sandbox.psp-polska.pl/api/receiver.xml"
+key_request: "example"
+basic_auth_login: "example"
+basic_auth_password:"example"
+app_id: "example"
+password: "example"
+key_response: "example"
