@@ -6,3 +6,5 @@ vendor/ruby
 config/*.yml
 *.swp
 *.swo
+Capfile
+config/deploy.rb
