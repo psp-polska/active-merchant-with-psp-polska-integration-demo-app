@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/psp-polska/active_merchant.git
-  revision: bee9939917e4bada32d74a280e0b0f81890b51f6
+  revision: 4720f27ecff982b50c5285c4e1e393ee7b65cc2b
   specs:
     activemerchant (1.12.1)
       activesupport (>= 2.3.8)
