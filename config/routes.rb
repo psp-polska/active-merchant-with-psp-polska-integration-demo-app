@@ -56,6 +56,12 @@ PspPolskaDemo::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 
-  resources :payments, :only => [:new, :create, :update]
+  resources :payments, :only => [:new] do
+    collection do
+      post 'success'
+      post 'fail'
+      post 'notification'
+    end
+  end
   root :to => "payments#new"
 end

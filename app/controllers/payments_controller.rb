@@ -8,17 +8,22 @@ class PaymentsController < ApplicationController
     if @return.success?
       redirect_to @return.redirect_url
     else
-      raise "Request failed: #{@return.params.inspect} VALID: #{@return.valid?}"
+      raise "Request failed: #{@return.params.inspect}"
     end
   end
 
-  # handle all returns from psp-polska
-  def create
+  # handle success redirect from psp-polska
+  def success 
+    render :text => "OK"
+  end
 
+  def fail
+    render :text => "FAIL"
   end
 
   # handle notifications from psp-polska
-  def update
-
+  def notification
+    StoredNotification.create!(:xml_data => params[:response].to_xml(:root => "response"), :processed => false)
+    render :text => "OK"
   end
 end

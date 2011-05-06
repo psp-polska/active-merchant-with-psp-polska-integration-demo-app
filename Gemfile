@@ -7,6 +7,7 @@ gem 'rails', '3.0.4'
 
 gem 'sqlite3'
 gem "haml"
+gem "whenever"
 gem "activemerchant", :git => "git://github.com/psp-polska/active_merchant.git"
 
 

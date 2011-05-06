@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/psp-polska/active_merchant.git
-  revision: 4720f27ecff982b50c5285c4e1e393ee7b65cc2b
+  revision: dd9cb9047be549daea8b99dad6699cc00f37cfd9
   specs:
     activemerchant (1.12.1)
       activesupport (>= 2.3.8)
@@ -10,6 +10,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.4)
       actionpack (= 3.0.4)
@@ -76,6 +77,9 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    whenever (0.6.7)
+      aaronh-chronic (>= 0.3.9)
+      activesupport (>= 2.3.4)
 
 PLATFORMS
   ruby
@@ -85,3 +89,4 @@ DEPENDENCIES
   haml
   rails (= 3.0.4)
   sqlite3
+  whenever
