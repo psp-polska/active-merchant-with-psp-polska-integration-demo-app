@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
     if @return.success?
       redirect_to @return.redirect_url
     else
-      raise "Request failed: #{@return.params.inspect}"
+      raise "Request failed: #{@return.params.inspect} | #{res.body} | #{@psp_polska_request.to_xml}"
     end
   end
 
