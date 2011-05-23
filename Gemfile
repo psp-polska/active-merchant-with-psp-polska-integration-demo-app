@@ -6,6 +6,7 @@ gem 'rails', '3.0.4'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'rake', '~> 0.8.7'
 gem "haml"
 gem "whenever"
 gem "activemerchant", :git => "git://github.com/psp-polska/active_merchant.git"
