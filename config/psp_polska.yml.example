@@ -1,7 +1,5 @@
 request_uri: "https://sandbox.psp-polska.pl/api/receiver.xml"
 key_request: "TestRequest1"
-basic_auth_login: "sandbox"
-basic_auth_password: "SumiennySabotaz"
 app_id: "999999991"
 password: "TestService1"
 key_response: "TestResponse1"
