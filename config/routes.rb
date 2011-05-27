@@ -60,8 +60,8 @@ PspPolskaDemo::Application.routes.draw do
     collection do
       get 'sale'
       get 'recurring'
-      post 'success'
-      post 'fail'
+      get 'success'
+      get 'fail'
       post 'notification'
     end
   end
