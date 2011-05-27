@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/psp-polska/active_merchant.git
-  revision: 7c1b9d750f5643e86064d4442230ebe3ec2a43cc
+  revision: 2525124baddbb730807178e2cc8de793dd955803
   specs:
     activemerchant (1.12.1)
       activesupport (>= 2.3.8)
@@ -77,7 +77,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
-    whenever (0.6.7)
+    whenever (0.6.8)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
 

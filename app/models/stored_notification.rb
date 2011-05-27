@@ -9,10 +9,12 @@ class StoredNotification < ActiveRecord::Base
   def process!
     return true if processed?
     notification = ActiveMerchant::Billing::Integrations::PspPolska::Notification.new(xml_data)
-    if notification.complete? and notification.acknowledge
+    if notification.valid? and notification.acknowledge
       # do something when payment is completed
+      logger.debug("Notification completed: #{self.inspect}")
     else
       # do something else in opposite case
+      logger.debug("Notification not completed: #{self.inspect}")
     end
     update_attribute("processed", true) 
   end
