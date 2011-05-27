@@ -1,0 +1,7 @@
+request_uri: "https://sandbox.psp-polska.pl/api/receiver.xml"
+key_request: "TestRequest1"
+app_id: "999999991"
+password: "TestService1"
+key_response: "TestResponse1"
+ip: "109.205.48.206"
+domain: "sandbox.psp-polska.pl"
