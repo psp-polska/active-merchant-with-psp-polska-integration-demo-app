@@ -1,7 +1,8 @@
 active-merchant-with-psp-polska-integration-demo-app
-==============================================================================
+====================================================
 
-=== Intro ===
+Intro
+-----
 
 This is demo app to show you how to work with PSP Polska payments integration
 from our official ActiveMerchant fork. We want to pull our fork to official
@@ -19,35 +20,36 @@ change payment/order status.
 
 See API documentation to learn more [will be linked soon]
 
-=== Actions ===
+Actions
+-------
 
 We have following routes in our demo app:
 
- sale_payments GET  /payments/sale(.:format)         {:controller=>"payments", :action=>"sale"}
+ 'sale_payments GET  /payments/sale(.:format)         {:controller=>"payments", :action=>"sale"}
    recurring_payments GET  /payments/recurring(.:format)    {:controller=>"payments", :action=>"recurring"}
      success_payments GET  /payments/success(.:format)      {:controller=>"payments", :action=>"success"}
         fail_payments GET  /payments/fail(.:format)         {:controller=>"payments", :action=>"fail"}
 notification_payments POST /payments/notification(.:format) {:controller=>"payments", :action=>"notification"}
-                 root      /(.:format)                      {:controller=>"payments", :action=>"sale"}
-== Sale action ==
+                 root      /(.:format)                      {:controller=>"payments", :action=>"sale"}'
+**Sale action**
 
 This action is used to send initial request to API, receive the response and
 redirect user to PSP Polska single payment page.
 
-== Recurring action ==
+**Recurring action**
 
 Action is used to send initial recurring request to API, receive the response
 and redirect user to PSP Polska recurring start page.
 
-== Success action ==
+**Success action**
 
 Fake action where user should be redirected to after successful payment.
 
-== Fail action ==
+**Fail action**
 
 Fake action where user should be redirected to after unsuccessful payment.
 
-== Notification action ==
+**Notification action**
 
 Action to receive notification from PSP Polska. The notification is send
 when user establish new payment (single payment or recurring). The 
@@ -63,7 +65,7 @@ call process! action for all of them. Our process! action just log
 some info, but real case it should be used to change payment/order
 status in your system.
 
-== Configuration file ==
+**Configuration file**
 
 Your PSP Polska account should be set up in config/psp_polska.yml
 There is example for this file in our repo with public test account.
