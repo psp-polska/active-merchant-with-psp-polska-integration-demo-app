@@ -25,12 +25,13 @@ Actions
 
 We have following routes in our demo app:
 
- 'sale_payments GET  /payments/sale(.:format)         {:controller=>"payments", :action=>"sale"}
-   recurring_payments GET  /payments/recurring(.:format)    {:controller=>"payments", :action=>"recurring"}
-     success_payments GET  /payments/success(.:format)      {:controller=>"payments", :action=>"success"}
-        fail_payments GET  /payments/fail(.:format)         {:controller=>"payments", :action=>"fail"}
-notification_payments POST /payments/notification(.:format) {:controller=>"payments", :action=>"notification"}
-                 root      /(.:format)                      {:controller=>"payments", :action=>"sale"}'
+> sale_payments GET  /payments/sale(.:format)         {:controller=>"payments", :action=>"sale"}
+>   recurring_payments GET  /payments/recurring(.:format)    {:controller=>"payments", :action=>"recurring"}
+>     success_payments GET  /payments/success(.:format)      {:controller=>"payments", :action=>"success"}
+>        fail_payments GET  /payments/fail(.:format)         {:controller=>"payments", :action=>"fail"}
+> notification_payments POST /payments/notification(.:format) {:controller=>"payments", :action=>"notification"}
+>                 root      /(.:format)                      {:controller=>"payments", :action=>"sale"}
+
 **Sale action**
 
 This action is used to send initial request to API, receive the response and
@@ -65,7 +66,8 @@ call process! action for all of them. Our process! action just log
 some info, but real case it should be used to change payment/order
 status in your system.
 
-**Configuration file**
+Configuration file
+------------------
 
 Your PSP Polska account should be set up in config/psp_polska.yml
 There is example for this file in our repo with public test account.
