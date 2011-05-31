@@ -1,256 +1,71 @@
-== Welcome to Rails
+active-merchant-with-psp-polska-integration-demo-app
+==============================================================================
 
-Rails is a web-application framework that includes everything needed to create
-database-backed web applications according to the Model-View-Control pattern.
+=== Intro ===
 
-This pattern splits the view (also called the presentation) into "dumb"
-templates that are primarily responsible for inserting pre-built data in between
-HTML tags. The model contains the "smart" domain objects (such as Account,
-Product, Person, Post) that holds all the business logic and knows how to
-persist themselves to a database. The controller handles the incoming requests
-(such as Save New Account, Update Product, Show Post) by manipulating the model
-and directing data to the view.
+This is demo app to show you how to work with PSP Polska payments integration
+from our official ActiveMerchant fork. We want to pull our fork to official
+ActiveMerchant release, but for now you have to use our AM form from github:
+git://github.com/psp-polska/active_merchant.git
 
-In Rails, the model is handled by what's called an object-relational mapping
-layer entitled Active Record. This layer allows you to present the data from
-database rows as objects and embellish these data objects with business logic
-methods. You can read more about Active Record in
-link:files/vendor/rails/activerecord/README.html.
+This app can be also downloaded from github:
+git://github.com/psp-polska/active-merchant-with-psp-polska-integration-demo-app.git
 
-The controller and view are handled by the Action Pack, which handles both
-layers by its two parts: Action View and Action Controller. These two layers
-are bundled in a single package due to their heavy interdependence. This is
-unlike the relationship between the Active Record and Action Pack that is much
-more separate. Each of these packages can be used independently outside of
-Rails. You can read more about Action Pack in
-link:files/vendor/rails/actionpack/README.html.
+PSP Polska offers XML-based API. You have to send initial xml request to receive 
+answer that can be used to redirect user to PSP Polska payment page where user
+can do all things required to make payment. After that user is redirected back 
+to your site and payment notification is sent to your app that you can use to
+change payment/order status.
 
+See API documentation to learn more [will be linked soon]
 
-== Getting Started
+=== Actions ===
 
-1. At the command prompt, create a new Rails application:
-       <tt>rails new myapp</tt> (where <tt>myapp</tt> is the application name)
+We have following routes in our demo app:
 
-2. Change directory to <tt>myapp</tt> and start the web server:
-       <tt>cd myapp; rails server</tt> (run with --help for options)
+ sale_payments GET  /payments/sale(.:format)         {:controller=>"payments", :action=>"sale"}
+   recurring_payments GET  /payments/recurring(.:format)    {:controller=>"payments", :action=>"recurring"}
+     success_payments GET  /payments/success(.:format)      {:controller=>"payments", :action=>"success"}
+        fail_payments GET  /payments/fail(.:format)         {:controller=>"payments", :action=>"fail"}
+notification_payments POST /payments/notification(.:format) {:controller=>"payments", :action=>"notification"}
+                 root      /(.:format)                      {:controller=>"payments", :action=>"sale"}
+== Sale action ==
 
-3. Go to http://localhost:3000/ and you'll see:
-       "Welcome aboard: You're riding Ruby on Rails!"
+This action is used to send initial request to API, receive the response and
+redirect user to PSP Polska single payment page.
 
-4. Follow the guidelines to start developing your application. You can find
-the following resources handy:
+== Recurring action ==
 
-* The Getting Started Guide: http://guides.rubyonrails.org/getting_started.html
-* Ruby on Rails Tutorial Book: http://www.railstutorial.org/
+Action is used to send initial recurring request to API, receive the response
+and redirect user to PSP Polska recurring start page.
 
+== Success action ==
 
-== Debugging Rails
+Fake action where user should be redirected to after successful payment.
 
-Sometimes your application goes wrong. Fortunately there are a lot of tools that
-will help you debug it and get it back on the rails.
+== Fail action ==
 
-First area to check is the application log files. Have "tail -f" commands
-running on the server.log and development.log. Rails will automatically display
-debugging and runtime information to these files. Debugging info will also be
-shown in the browser on requests from 127.0.0.1.
+Fake action where user should be redirected to after unsuccessful payment.
 
-You can also log your own messages directly into the log file from your code
-using the Ruby logger class from inside your controllers. Example:
+== Notification action ==
 
-  class WeblogController < ActionController::Base
-    def destroy
-      @weblog = Weblog.find(params[:id])
-      @weblog.destroy
-      logger.info("#{Time.now} Destroyed Weblog ID ##{@weblog.id}!")
-    end
-  end
+Action to receive notification from PSP Polska. The notification is send
+when user establish new payment (single payment or recurring). The 
+notification has information about payment status. 
 
-The result will be a message in your log file along the lines of:
+First of all we stored this notification in database. After that we say
+'OK' to let API know we receive the response correct.
 
-  Mon Oct 08 14:22:29 +1000 2007 Destroyed Weblog ID #1!
+To process notification we use whenever that run following method:
+StoredNotification.process
+This method is looking up for not processed stored notifications and
+call process! action for all of them. Our process! action just log
+some info, but real case it should be used to change payment/order
+status in your system.
 
-More information on how to use the logger is at http://www.ruby-doc.org/core/
+== Configuration file ==
 
-Also, Ruby documentation can be found at http://www.ruby-lang.org/. There are
-several books available online as well:
+Your PSP Polska account should be set up in config/psp_polska.yml
+There is example for this file in our repo with public test account.
+You can use this account or use your own.
 
-* Programming Ruby: http://www.ruby-doc.org/docs/ProgrammingRuby/ (Pickaxe)
-* Learn to Program: http://pine.fm/LearnToProgram/ (a beginners guide)
-
-These two books will bring you up to speed on the Ruby language and also on
-programming in general.
-
-
-== Debugger
-
-Debugger support is available through the debugger command when you start your
-Mongrel or WEBrick server with --debugger. This means that you can break out of
-execution at any point in the code, investigate and change the model, and then,
-resume execution! You need to install ruby-debug to run the server in debugging
-mode. With gems, use <tt>sudo gem install ruby-debug</tt>. Example:
-
-  class WeblogController < ActionController::Base
-    def index
-      @posts = Post.find(:all)
-      debugger
-    end
-  end
-
-So the controller will accept the action, run the first line, then present you
-with a IRB prompt in the server window. Here you can do things like:
-
-  >> @posts.inspect
-  => "[#<Post:0x14a6be8
-          @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>,
-       #<Post:0x14a6620
-          @attributes={"title"=>"Rails", "body"=>"Only ten..", "id"=>"2"}>]"
-  >> @posts.first.title = "hello from a debugger"
-  => "hello from a debugger"
-
-...and even better, you can examine how your runtime objects actually work:
-
-  >> f = @posts.first
-  => #<Post:0x13630c4 @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>
-  >> f.
-  Display all 152 possibilities? (y or n)
-
-Finally, when you're ready to resume execution, you can enter "cont".
-
-
-== Console
-
-The console is a Ruby shell, which allows you to interact with your
-application's domain model. Here you'll have all parts of the application
-configured, just like it is when the application is running. You can inspect
-domain models, change values, and save to the database. Starting the script
-without arguments will launch it in the development environment.
-
-To start the console, run <tt>rails console</tt> from the application
-directory.
-
-Options:
-
-* Passing the <tt>-s, --sandbox</tt> argument will rollback any modifications
-  made to the database.
-* Passing an environment name as an argument will load the corresponding
-  environment. Example: <tt>rails console production</tt>.
-
-To reload your controllers and models after launching the console run
-<tt>reload!</tt>
-
-More information about irb can be found at:
-link:http://www.rubycentral.com/pickaxe/irb.html
-
-
-== dbconsole
-
-You can go to the command line of your database directly through <tt>rails
-dbconsole</tt>. You would be connected to the database with the credentials
-defined in database.yml. Starting the script without arguments will connect you
-to the development database. Passing an argument will connect you to a different
-database, like <tt>rails dbconsole production</tt>. Currently works for MySQL,
-PostgreSQL and SQLite 3.
-
-== Description of Contents
-
-The default directory structure of a generated Ruby on Rails application:
-
-  |-- app
-  |   |-- controllers
-  |   |-- helpers
-  |   |-- mailers
-  |   |-- models
-  |   `-- views
-  |       `-- layouts
-  |-- config
-  |   |-- environments
-  |   |-- initializers
-  |   `-- locales
-  |-- db
-  |-- doc
-  |-- lib
-  |   `-- tasks
-  |-- log
-  |-- public
-  |   |-- images
-  |   |-- javascripts
-  |   `-- stylesheets
-  |-- script
-  |-- test
-  |   |-- fixtures
-  |   |-- functional
-  |   |-- integration
-  |   |-- performance
-  |   `-- unit
-  |-- tmp
-  |   |-- cache
-  |   |-- pids
-  |   |-- sessions
-  |   `-- sockets
-  `-- vendor
-      `-- plugins
-
-app
-  Holds all the code that's specific to this particular application.
-
-app/controllers
-  Holds controllers that should be named like weblogs_controller.rb for
-  automated URL mapping. All controllers should descend from
-  ApplicationController which itself descends from ActionController::Base.
-
-app/models
-  Holds models that should be named like post.rb. Models descend from
-  ActiveRecord::Base by default.
-
-app/views
-  Holds the template files for the view that should be named like
-  weblogs/index.html.erb for the WeblogsController#index action. All views use
-  eRuby syntax by default.
-
-app/views/layouts
-  Holds the template files for layouts to be used with views. This models the
-  common header/footer method of wrapping views. In your views, define a layout
-  using the <tt>layout :default</tt> and create a file named default.html.erb.
-  Inside default.html.erb, call <% yield %> to render the view using this
-  layout.
-
-app/helpers
-  Holds view helpers that should be named like weblogs_helper.rb. These are
-  generated for you automatically when using generators for controllers.
-  Helpers can be used to wrap functionality for your views into methods.
-
-config
-  Configuration files for the Rails environment, the routing map, the database,
-  and other dependencies.
-
-db
-  Contains the database schema in schema.rb. db/migrate contains all the
-  sequence of Migrations for your schema.
-
-doc
-  This directory is where your application documentation will be stored when
-  generated using <tt>rake doc:app</tt>
-
-lib
-  Application specific libraries. Basically, any kind of custom code that
-  doesn't belong under controllers, models, or helpers. This directory is in
-  the load path.
-
-public
-  The directory available for the web server. Contains subdirectories for
-  images, stylesheets, and javascripts. Also contains the dispatchers and the
-  default HTML files. This should be set as the DOCUMENT_ROOT of your web
-  server.
-
-script
-  Helper scripts for automation and generation.
-
-test
-  Unit and functional tests along with fixtures. When using the rails generate
-  command, template test files will be generated for you and placed in this
-  directory.
-
-vendor
-  External libraries that the application depends on. Also includes the plugins
-  subdirectory. If the app has frozen rails, those gems also go here, under
-  vendor/rails/. This directory is in the load path.
