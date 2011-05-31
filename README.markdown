@@ -25,12 +25,12 @@ Actions
 
 We have following routes in our demo app:
 
-> sale_payments GET  /payments/sale(.:format)         {:controller=>"payments", :action=>"sale"}
->   recurring_payments GET  /payments/recurring(.:format)    {:controller=>"payments", :action=>"recurring"}
->     success_payments GET  /payments/success(.:format)      {:controller=>"payments", :action=>"success"}
->        fail_payments GET  /payments/fail(.:format)         {:controller=>"payments", :action=>"fail"}
-> notification_payments POST /payments/notification(.:format) {:controller=>"payments", :action=>"notification"}
->                 root      /(.:format)                      {:controller=>"payments", :action=>"sale"}
+    sale_payments GET  /payments/sale(.:format)         {:controller=>"payments", :action=>"sale"}
+    recurring_payments GET  /payments/recurring(.:format)    {:controller=>"payments", :action=>"recurring"}
+    success_payments GET  /payments/success(.:format)      {:controller=>"payments", :action=>"success"}
+    fail_payments GET  /payments/fail(.:format)         {:controller=>"payments", :action=>"fail"}
+    notification_payments POST /payments/notification(.:format) {:controller=>"payments", :action=>"notification"}
+    root      /(.:format)                      {:controller=>"payments", :action=>"sale"}
 
 **Sale action**
 
