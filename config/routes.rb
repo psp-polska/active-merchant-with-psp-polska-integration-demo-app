@@ -59,6 +59,7 @@ PspPolskaDemo::Application.routes.draw do
   resources :payments, :only => [] do
     collection do
       get 'sale'
+      get 'preauth'
       get 'recurring'
       get 'success'
       get 'fail'

@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/psp-polska/active_merchant.git
-  revision: 2525124baddbb730807178e2cc8de793dd955803
+  revision: 8b7e9a2f31ab60ef5970c743bb83c72d39609ec9
   specs:
-    activemerchant (1.12.1)
-      activesupport (>= 2.3.8)
+    activemerchant (1.15.0)
+      activesupport (>= 2.3.11)
       braintree (>= 2.0.0)
       builder (>= 2.0.0)
 
@@ -39,12 +39,12 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     arel (2.0.10)
-    braintree (2.10.0)
-      builder
+    braintree (2.10.1)
+      builder (>= 2.0.0)
     builder (2.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    haml (3.1.1)
+    haml (3.1.2)
     i18n (0.6.0)
     mail (2.2.19)
       activesupport (>= 2.3.6)

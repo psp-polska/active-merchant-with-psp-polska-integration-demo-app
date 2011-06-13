@@ -7,6 +7,11 @@ class PaymentsController < ApplicationController
     handle_request
   end
 
+  def preauth
+    @psp_polska_request = PspPolskaRequest.new(request_data.merge(:action => "preauth"))
+    handle_request
+  end
+
   def recurring
     @psp_polska_request = PspPolskaRequest.new(request_data.merge(:action => "recurring_start", :cycle => "1m"))
     handle_request  
